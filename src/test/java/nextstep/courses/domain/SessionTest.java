@@ -8,14 +8,14 @@ class SessionTest {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new FreeSession(1L, sessionDate, sessionImage, status, Type.FREE);
+        return new FreeSession(2L, 1L, sessionDate, sessionImage, status, Type.FREE);
     }
 
     public static PaidSession createPaidSession(long price, SessionStatus status) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new PaidSession(1L, sessionDate, sessionImage, status, Type.PAID, new Students(5), price);
+        return new PaidSession(1L, 1L, sessionDate, sessionImage, status, Type.PAID, new Students(5), price);
     }
 
     public static SessionImage createSessionImage() {
