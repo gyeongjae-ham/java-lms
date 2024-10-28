@@ -17,6 +17,8 @@ public abstract class Session {
         this.sessionType = sessionType;
     }
 
+    public abstract boolean compareId(Long sessionId);
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

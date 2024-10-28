@@ -8,12 +8,14 @@ import nextstep.users.domain.NsUser;
 public class PaidSession extends Session {
 
     private final Long id;
+    private final Long courseId;
     private final Students students;
     private final Long price;
     private final SessionStatus status;
 
     public PaidSession(
         long id,
+        long courseId,
         SessionDate sessionDate,
         SessionImage sessionImage,
         Type type,
@@ -21,6 +23,7 @@ public class PaidSession extends Session {
         Long price)
     {
         this(id,
+            courseId,
             sessionDate,
             sessionImage,
             SessionStatus.PREPARE,
@@ -31,6 +34,7 @@ public class PaidSession extends Session {
 
     public PaidSession(
         long id,
+        long courseId,
         SessionDate sessionDate,
         SessionImage sessionImage,
         SessionStatus sessionStatus,
@@ -40,6 +44,7 @@ public class PaidSession extends Session {
     {
         super(sessionDate, sessionImage, type);
         this.id = id;
+        this.courseId = courseId;
         this.students = students;
         this.price = price;
         this.status = sessionStatus;
@@ -79,6 +84,11 @@ public class PaidSession extends Session {
 
     public int studentSize() {
         return students.size();
+    }
+
+    @Override
+    public boolean compareId(Long sessionId) {
+        return this.id == sessionId;
     }
 
     @Override
