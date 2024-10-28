@@ -4,18 +4,18 @@ import java.time.LocalDateTime;
 
 class SessionTest {
 
-    public static FreeSession createFreeSession() {
+    public static FreeSession createFreeSession(SessionStatus status) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new FreeSession(1L, sessionDate, sessionImage, Type.FREE);
+        return new FreeSession(1L, sessionDate, sessionImage, status, Type.FREE);
     }
 
-    public static PaidSession createPaidSession(long price) {
+    public static PaidSession createPaidSession(long price, SessionStatus status) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new PaidSession(1L, sessionDate, sessionImage, Type.PAID, new Students(5), price);
+        return new PaidSession(1L, sessionDate, sessionImage, status, Type.PAID, new Students(5), price);
     }
 
     public static SessionImage createSessionImage() {
