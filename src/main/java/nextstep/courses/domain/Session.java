@@ -107,6 +107,10 @@ public class Session {
         addStudent(student);
     }
 
+    public void addStudents(Students students) {
+        this.students = students;
+    }
+
     private void checkFreeStudentSize(int maxStudentSize, Type sessionType) {
         if (maxStudentSize != 0 && sessionType.isFree()) {
             throw new IllegalStateException("This session is free do not set max size");
