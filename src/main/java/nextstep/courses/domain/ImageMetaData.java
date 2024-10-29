@@ -15,12 +15,22 @@ public class ImageMetaData {
         this.extension = extension;
     }
 
+    public int getByteSize() {
+        return byteSize;
+    }
+
+    public Extension getExtension() {
+        return extension;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ImageMetaData))
+        }
+        if (!(o instanceof ImageMetaData)) {
             return false;
+        }
         ImageMetaData that = (ImageMetaData)o;
         return byteSize == that.byteSize && Objects.equals(extension, that.extension);
     }

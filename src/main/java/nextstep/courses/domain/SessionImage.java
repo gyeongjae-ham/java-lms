@@ -12,12 +12,22 @@ public class SessionImage {
         this.metaInfo = metaInfo;
     }
 
+    public ImageSize getImageSize() {
+        return imageSize;
+    }
+
+    public ImageMetaData getMetaInfo() {
+        return metaInfo;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof SessionImage))
+        }
+        if (!(o instanceof SessionImage)) {
             return false;
+        }
         SessionImage that = (SessionImage)o;
         return Objects.equals(imageSize, that.imageSize) && Objects.equals(metaInfo, that.metaInfo);
     }

@@ -30,6 +30,14 @@ public class ImageSize {
         return !(HEIGHT_RATE * height == WIDTH_RATE * width);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
