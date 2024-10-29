@@ -3,8 +3,8 @@ package nextstep.courses.domain;
 import java.util.Objects;
 
 public class ImageSize {
-    public static final int MAX_WIDTH = 300;
-    public static final int MAX_HEIGHT = 200;
+    public static final int MIN_WIDTH = 300;
+    public static final int MIN_HEIGHT = 200;
     public static final int HEIGHT_RATE = 3;
     public static final int WIDTH_RATE = 2;
 
@@ -12,7 +12,7 @@ public class ImageSize {
     private final int height;
 
     public ImageSize(int width, int height) {
-        if (width < MAX_WIDTH || height < MAX_HEIGHT) {
+        if (width < MIN_WIDTH || height < MIN_HEIGHT) {
             throw new IllegalArgumentException();
         }
         checkRate(width, height);
