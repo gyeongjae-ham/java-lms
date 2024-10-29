@@ -8,29 +8,21 @@ import nextstep.users.domain.NsUser;
 
 public class Students {
     private final List<NsUser> students;
-    private final Integer maxSize;
 
     public Students() {
-        this(new ArrayList<>(), null);
-    }
-
-    public Students(int maxSize) {
-        this(new ArrayList<>(), maxSize);
+        this(new ArrayList<>());
     }
 
     public Students(List<NsUser> students) {
-        this(new ArrayList<>(students), null);
+        this.students = new ArrayList<>(students);
     }
 
-    public Students(List<NsUser> students, Integer maxSize) {
-        this.students = students;
-        this.maxSize = maxSize;
+
+    public boolean isBigger(int studentMaxValue) {
+        return studentMaxValue < this.students.size() + 1;
     }
 
     public void add(NsUser newStudent) {
-        if (maxSize != null && students.size() + 1 > maxSize) {
-            throw new IllegalArgumentException("Maximum student count exceeded");
-        }
         this.students.add(newStudent);
     }
 
@@ -40,16 +32,18 @@ public class Students {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Students))
+        }
+        if (!(o instanceof Students)) {
             return false;
+        }
         Students students1 = (Students)o;
-        return Objects.equals(students, students1.students) && Objects.equals(maxSize, students1.maxSize);
+        return Objects.equals(students, students1.students);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(students, maxSize);
+        return Objects.hashCode(students);
     }
 }

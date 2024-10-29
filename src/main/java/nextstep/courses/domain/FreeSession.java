@@ -1,5 +1,6 @@
 package nextstep.courses.domain;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import nextstep.users.domain.NsUser;
@@ -11,6 +12,7 @@ public class FreeSession extends Session {
     private final Students students;
     private final Long price;
     private final SessionStatus status;
+    private final Integer maxStudentSize;
 
     public FreeSession(
         Long id,
@@ -48,6 +50,7 @@ public class FreeSession extends Session {
         this.students = students;
         this.status = sessionStatus;
         this.price = 0L;
+        this.maxStudentSize = 0;
     }
 
     public void addStudent(NsUser student) {
@@ -75,11 +78,12 @@ public class FreeSession extends Session {
         }
         FreeSession that = (FreeSession)o;
         return Objects.equals(id, that.id) && Objects.equals(courseId, that.courseId) && Objects.equals(students,
-            that.students) && Objects.equals(price, that.price) && status == that.status;
+            that.students) && Objects.equals(price, that.price) && status == that.status && Objects.equals(maxStudentSize,
+            that.maxStudentSize);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, courseId, students, price, status);
+        return Objects.hash(super.hashCode(), id, courseId, students, price, status, maxStudentSize);
     }
 }

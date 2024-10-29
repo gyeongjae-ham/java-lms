@@ -15,7 +15,7 @@ class SessionTestFixture {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new PaidSession(1L, 1L, sessionDate, sessionImage, status, Type.PAID, new Students(5), price);
+        return new PaidSession(1L, 1L, sessionDate, sessionImage, status, Type.PAID, new Students(), price, 5);
     }
 
     public static SessionImage createSessionImage() {

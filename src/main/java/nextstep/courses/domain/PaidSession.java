@@ -12,6 +12,7 @@ public class PaidSession extends Session {
     private final Students students;
     private final Long price;
     private final SessionStatus status;
+    private final Integer maxStudentSize;
 
     public PaidSession(
         long id,
@@ -20,7 +21,8 @@ public class PaidSession extends Session {
         SessionImage sessionImage,
         Type type,
         Students students,
-        Long price)
+        Long price,
+        Integer maxStudentSize)
     {
         this(id,
             courseId,
@@ -29,7 +31,8 @@ public class PaidSession extends Session {
             SessionStatus.PREPARE,
             type,
             students,
-            price);
+            price,
+            maxStudentSize);
     }
 
     public PaidSession(
@@ -40,7 +43,8 @@ public class PaidSession extends Session {
         SessionStatus sessionStatus,
         Type type,
         Students students,
-        Long price)
+        Long price,
+        Integer maxStudentSize)
     {
         super(sessionDate, sessionImage, type);
         this.id = id;
@@ -48,6 +52,7 @@ public class PaidSession extends Session {
         this.students = students;
         this.price = price;
         this.status = sessionStatus;
+        this.maxStudentSize = maxStudentSize;
     }
 
     public void register(Payment payment, NsUser student) {
@@ -78,12 +83,15 @@ public class PaidSession extends Session {
         }
     }
 
-    private void addStudent(NsUser student) {
-        students.add(student);
+    public void addStudent(NsUser newStudent) {
+        if (students.isBigger(this.maxStudentSize)) {
+            throw new IllegalArgumentException("Max student size");
+        }
+        students.add(newStudent);
     }
 
     public int studentSize() {
-        return students.size();
+        return this.students.size();
     }
 
     @Override
