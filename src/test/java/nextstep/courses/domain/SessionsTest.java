@@ -11,8 +11,8 @@ class SessionsTest {
     @Test
     void 생성() {
         List<Session> sessionList = List.of(
-            SessionTest.createPaidSession(3000L, SessionStatus.PREPARE),
-            SessionTest.createFreeSession(SessionStatus.PREPARE)
+            SessionTestFixture.createPaidSession(3000L, SessionStatus.PREPARE),
+            SessionTestFixture.createFreeSession(SessionStatus.PREPARE)
         );
         Sessions sessions = new Sessions(sessionList);
 
@@ -22,13 +22,13 @@ class SessionsTest {
     @Test
     void 해당하는_id의_Session을_반환한다() {
         List<Session> sessionList = List.of(
-            SessionTest.createPaidSession(3000L, SessionStatus.PREPARE),
-            SessionTest.createFreeSession(SessionStatus.PREPARE)
+            SessionTestFixture.createPaidSession(3000L, SessionStatus.PREPARE),
+            SessionTestFixture.createFreeSession(SessionStatus.PREPARE)
         );
         Sessions sessions = new Sessions(sessionList);
 
         Session session = sessions.getSession(2L);
 
-        assertThat(session).isEqualTo(SessionTest.createFreeSession(SessionStatus.PREPARE));
+        assertThat(session).isEqualTo(SessionTestFixture.createFreeSession(SessionStatus.PREPARE));
     }
 }

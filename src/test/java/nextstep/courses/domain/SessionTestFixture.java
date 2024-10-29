@@ -2,7 +2,7 @@ package nextstep.courses.domain;
 
 import java.time.LocalDateTime;
 
-class SessionTest {
+class SessionTestFixture {
 
     public static FreeSession createFreeSession(SessionStatus status) {
         SessionDate sessionDate = createSessionDate();

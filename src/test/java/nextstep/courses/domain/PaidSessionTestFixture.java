@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test;
 import nextstep.payments.domain.Payment;
 import nextstep.users.domain.NsUserTest;
 
-class PaidSessionTest {
+class PaidSessionTestFixture {
 
     @Test
     void 생성() {
-        Session paidSession = SessionTest.createPaidSession(3000L, SessionStatus.PREPARE);
-        assertThat(paidSession).isEqualTo(SessionTest.createPaidSession(3000L, SessionStatus.PREPARE));
+        Session paidSession = SessionTestFixture.createPaidSession(3000L, SessionStatus.PREPARE);
+        assertThat(paidSession).isEqualTo(SessionTestFixture.createPaidSession(3000L, SessionStatus.PREPARE));
     }
 
     @Test
     void 결제금액이_수강료와_같으면_수강신청된다() {
         Payment payment = new Payment("id", 1L, 1L, 3000L);
-        PaidSession paidSession = SessionTest.createPaidSession(3000L, SessionStatus.REGISTER);
+        PaidSession paidSession = SessionTestFixture.createPaidSession(3000L, SessionStatus.REGISTER);
 
         paidSession.register(payment, NsUserTest.JAVAJIGI);
 
@@ -28,7 +28,7 @@ class PaidSessionTest {
     @Test
     void 모집중이_아니면_등록하지_못한다() {
         Payment payment = new Payment("id", 1L, 1L, 3000L);
-        PaidSession paidSession = SessionTest.createPaidSession(3000L, SessionStatus.PREPARE);
+        PaidSession paidSession = SessionTestFixture.createPaidSession(3000L, SessionStatus.PREPARE);
 
         assertThatThrownBy(() -> paidSession.register(payment, NsUserTest.JAVAJIGI))
             .isInstanceOf(IllegalStateException.class);
