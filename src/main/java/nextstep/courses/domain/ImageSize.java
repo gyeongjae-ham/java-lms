@@ -27,7 +27,7 @@ public class ImageSize {
     }
 
     private boolean calculateRate(int width, int height) {
-        return HEIGHT_RATE * height == WIDTH_RATE * width;
+        return !(HEIGHT_RATE * height == WIDTH_RATE * width);
     }
 
     @Override
