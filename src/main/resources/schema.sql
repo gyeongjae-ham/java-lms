@@ -62,7 +62,7 @@ create table session (
     height int,
     extension varchar(100),
     type varchar(100) not null,
-    max_student_size int not null,
+    max_student_size int not null default 0,
     primary key (id)
 );
 
