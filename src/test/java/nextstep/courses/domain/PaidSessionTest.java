@@ -18,7 +18,7 @@ class PaidSessionTest {
     @Test
     void 결제금액이_수강료와_같으면_수강신청된다() {
         Payment payment = new Payment("id", 1L, 1L, 3000L);
-        PaidSession paidSession = SessionTest.createPaidSession(3000L, SessionStatus.RESITER);
+        PaidSession paidSession = SessionTest.createPaidSession(3000L, SessionStatus.REGISTER);
 
         paidSession.register(payment, NsUserTest.JAVAJIGI);
 
