@@ -14,7 +14,7 @@ public class StudentsTest {
 
     @DisplayName("최대 수강 학생 수와 현재 학생수를 비교한다")
     @Test
-    void check_student_size_with_max_size() {
+    void checkStudentSizeWithMaxSize() {
         List<NsUser> students = List.of(
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI
@@ -28,7 +28,7 @@ public class StudentsTest {
 
     @DisplayName("학생을 추가한다")
     @Test
-    void register_on_session() {
+    void registerOnSession() {
         List<NsUser> students = List.of(
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI

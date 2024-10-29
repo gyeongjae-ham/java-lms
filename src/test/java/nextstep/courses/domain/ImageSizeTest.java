@@ -16,21 +16,21 @@ class ImageSizeTest {
 
     @DisplayName("width 크기가 최소값 미만인 경우 예외가 발생한다")
     @Test
-    void width_under_min_value() {
+    void widthUnderMinValue() {
         assertThatThrownBy(() -> new ImageSize(12, 200))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("height 크기가 최소값 미만인 경우 예외가 발생한다")
     @Test
-    void height_under_min_value() {
+    void heightUnderMinValue() {
         assertThatThrownBy(() -> new ImageSize(300, 20))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("width와 height의 비율이 3:2가 아니면 예외가 발생한다")
     @Test
-    void verify_width_height_rate() {
+    void verifyWidthHeightRate() {
         assertThatThrownBy(() -> new ImageSize(300, 300))
             .isInstanceOf(IllegalArgumentException.class);
     }

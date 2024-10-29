@@ -9,7 +9,7 @@ class SessionStatusTest {
 
     @DisplayName("모집중인지 확인한다")
     @Test
-    void check_same_status() {
+    void checkSameStatus() {
         boolean result = SessionStatus.isNotRegister(SessionStatus.REGISTER);
         boolean result2 = SessionStatus.isNotRegister(SessionStatus.PREPARE);
 

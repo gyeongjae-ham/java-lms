@@ -17,7 +17,7 @@ class ImageMetaDataTest {
 
     @DisplayName("이미지 크기가 1MB를 넘으면 예외를 발생한다")
     @Test
-    void verify_image_size() {
+    void verifyImageSize() {
         assertThatThrownBy(() -> new ImageMetaData(2, Extension.JPG))
             .isInstanceOf(IllegalArgumentException.class);
     }

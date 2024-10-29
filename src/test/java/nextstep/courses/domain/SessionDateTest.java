@@ -22,7 +22,7 @@ class SessionDateTest {
 
     @DisplayName("시작일이 끝날보다 늦을수 없다")
     @Test
-    void verify_date_range() {
+    void verifyDateRange() {
         LocalDateTime start = LocalDateTime.of(2024, 10, 10, 10, 12);
         LocalDateTime end = LocalDateTime.of(2024, 10, 10, 10, 11);
 
