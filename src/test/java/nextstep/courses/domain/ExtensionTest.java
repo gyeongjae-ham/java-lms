@@ -13,4 +13,12 @@ class ExtensionTest {
         boolean result = Extension.verify("png");
         assertThat(result).isTrue();
     }
+
+    @DisplayName("문자열이 주어지면 해당하는 Extension을 반환한다")
+    @Test
+    void toExtension() {
+        String stringExtension = "png";
+        Extension extension = Extension.getWithString(stringExtension);
+        assertThat(extension).isEqualTo(Extension.PNG);
+    }
 }

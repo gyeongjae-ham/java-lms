@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class SessionStatusTest {
 
-    @DisplayName("상태가 같은지 검증한다")
+    @DisplayName("모집중인지 확인한다")
     @Test
     void check_same_status() {
         boolean result = SessionStatus.isNotRegister(SessionStatus.REGISTER);
@@ -15,5 +15,13 @@ class SessionStatusTest {
 
         assertThat(result).isFalse();
         assertThat(result2).isTrue();
+    }
+
+    @DisplayName("문자열을 받아서 해당하는 SessionStatus를 반환한다")
+    @Test
+    void toSessionStatus() {
+        String stringSessionStatus = "register";
+        SessionStatus sessionStatus = SessionStatus.from(stringSessionStatus);
+        assertThat(sessionStatus).isEqualTo(SessionStatus.REGISTER);
     }
 }
