@@ -5,9 +5,9 @@ import java.util.Objects;
 public class SessionImage {
 
     private final ImageSize imageSize;
-    private final ImageMetaInfo metaInfo;
+    private final ImageMetaData metaInfo;
 
-    public SessionImage(ImageSize imageSize, ImageMetaInfo metaInfo) {
+    public SessionImage(ImageSize imageSize, ImageMetaData metaInfo) {
         this.imageSize = imageSize;
         this.metaInfo = metaInfo;
     }

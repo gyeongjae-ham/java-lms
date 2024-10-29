@@ -9,8 +9,8 @@ class SessionImageTest {
     @Test
     void 생성() {
         ImageSize imageSize = new ImageSize(300, 200);
-        ImageMetaInfo imageMetaInfo = new ImageMetaInfo(1, Extension.JPG);
-        SessionImage sessionImage = new SessionImage(imageSize, imageMetaInfo);
-        assertThat(sessionImage).isEqualTo(new SessionImage(imageSize, imageMetaInfo));
+        ImageMetaData imageMetaData = new ImageMetaData(1, Extension.JPG);
+        SessionImage sessionImage = new SessionImage(imageSize, imageMetaData);
+        assertThat(sessionImage).isEqualTo(new SessionImage(imageSize, imageMetaData));
     }
 }
