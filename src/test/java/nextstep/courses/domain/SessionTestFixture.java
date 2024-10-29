@@ -2,20 +2,20 @@ package nextstep.courses.domain;
 
 import java.time.LocalDateTime;
 
-class SessionTestFixture {
+public class SessionTestFixture {
 
-    public static FreeSession createFreeSession(SessionStatus status) {
+    public static Session createFreeSession(Long id, SessionStatus status) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new FreeSession(2L, 1L, sessionDate, sessionImage, status, Type.FREE);
+        return new Session(id, 1L, 3000L, status, 0, sessionDate, sessionImage, Type.FREE);
     }
 
-    public static PaidSession createPaidSession(long price, SessionStatus status) {
+    public static Session createPaidSession(Long id, long price, int maxSize, SessionStatus status) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new PaidSession(1L, 1L, sessionDate, sessionImage, status, Type.PAID, new Students(), price, 5);
+        return new Session(id, 1L, price, status, maxSize, sessionDate, sessionImage, Type.PAID);
     }
 
     public static SessionImage createSessionImage() {
