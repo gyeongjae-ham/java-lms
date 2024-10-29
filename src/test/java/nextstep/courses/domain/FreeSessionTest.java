@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import nextstep.users.domain.NsUserTest;
 
-public class FreeSessionTestFixture {
+public class FreeSessionTest {
 
     @Test
     void 생성() {

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import nextstep.payments.domain.Payment;
 import nextstep.users.domain.NsUserTest;
 
-class PaidSessionTestFixture {
+class PaidSessionTest {
 
     @Test
     void 생성() {
