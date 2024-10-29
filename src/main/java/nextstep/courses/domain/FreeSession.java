@@ -51,7 +51,7 @@ public class FreeSession extends Session {
     }
 
     public void addStudent(NsUser student) {
-        if (!(status == SessionStatus.REGISTER)) {
+        if (SessionStatus.REGISTER.isSame(status)) {
             throw new IllegalStateException("This session is not registering now");
         }
         students.add(student);

@@ -51,7 +51,7 @@ public class PaidSession extends Session {
     }
 
     public void register(Payment payment, NsUser student) {
-        if (!(status == SessionStatus.REGISTER)) {
+        if (SessionStatus.REGISTER.isSame(status)) {
             throw new IllegalStateException("This session is not registering now");
         }
         verifyUser(payment, student);
