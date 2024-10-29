@@ -19,7 +19,7 @@ public class StudentsTest {
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI
         );
-        Students studentList = new Students(students);
+        Students studentList = new Students(1L, students);
 
         boolean result = studentList.isBigger(5);
 
@@ -33,7 +33,7 @@ public class StudentsTest {
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI
         );
-        Students studentList = new Students(students);
+        Students studentList = new Students(1L, students);
 
         studentList.add(NsUserTest.GYEONGJAE);
 

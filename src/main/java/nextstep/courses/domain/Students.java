@@ -7,13 +7,16 @@ import java.util.Objects;
 import nextstep.users.domain.NsUser;
 
 public class Students {
+
+    private final Long sessionId;
     private final List<NsUser> students;
 
-    public Students() {
-        this(new ArrayList<>());
+    public Students(Long sessionId) {
+        this(sessionId, new ArrayList<>());
     }
 
-    public Students(List<NsUser> students) {
+    public Students(Long sessionId, List<NsUser> students) {
+        this.sessionId = sessionId;
         this.students = new ArrayList<>(students);
     }
 
