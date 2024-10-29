@@ -27,7 +27,7 @@ class PaymentTest {
         Payment payment = createPayment(1L, 1L, 3000L);
         boolean result = payment.invalidStudent(1L);
 
-        assertThat(result).isTrue();
+        assertThat(result).isFalse();
     }
 
     private Payment createPayment(Long sessionId, Long studentId, Long price) {
