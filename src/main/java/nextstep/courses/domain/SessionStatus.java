@@ -6,7 +6,7 @@ public enum SessionStatus {
     CLOSE,
     ;
 
-    public boolean isSame(SessionStatus other) {
-        return this == other;
+    public static boolean isNotRegister(SessionStatus other) {
+        return !(REGISTER == other);
     }
 }
