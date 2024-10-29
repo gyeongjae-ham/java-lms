@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import nextstep.users.domain.NsUser;
@@ -11,8 +12,9 @@ import nextstep.users.domain.NsUserTest;
 
 public class StudentsTest {
 
+    @DisplayName("학생수 제한을 넘어서면 등록이 안된다")
     @Test
-    void 학생수_제한이_있다() {
+    void check_student_limit() {
         List<NsUser> students = List.of(
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI
@@ -23,8 +25,9 @@ public class StudentsTest {
             .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("무료강의라 제한이 없는 경우 추가가 성공한다")
     @Test
-    void 무료강의라_제한이없는_경우_추가가_성공한다() {
+    void register_on_free_session() {
         List<NsUser> students = List.of(
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI
