@@ -51,7 +51,7 @@ public class PaidSession extends Session {
     }
 
     public void register(Payment payment, NsUser student) {
-        if (!(status == SessionStatus.RESITER)) {
+        if (!(status == SessionStatus.REGISTER)) {
             throw new IllegalStateException("This session is not registering now");
         }
         verifyUser(payment, student);
@@ -93,18 +93,22 @@ public class PaidSession extends Session {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof PaidSession))
+        }
+        if (!(o instanceof PaidSession)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
+        }
         PaidSession that = (PaidSession)o;
-        return Objects.equals(students, that.students) && Objects.equals(price, that.price);
+        return Objects.equals(id, that.id) && Objects.equals(courseId, that.courseId) && Objects.equals(students,
+            that.students) && Objects.equals(price, that.price) && status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), students, price);
+        return Objects.hash(super.hashCode(), id, courseId, students, price, status);
     }
 }

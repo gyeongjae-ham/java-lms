@@ -9,6 +9,7 @@ public class FreeSession extends Session {
     private final Long id;
     private final Long courseId;
     private final Students students;
+    private final Long price;
     private final SessionStatus status;
 
     public FreeSession(
@@ -46,10 +47,11 @@ public class FreeSession extends Session {
         this.courseId = courseId;
         this.students = students;
         this.status = sessionStatus;
+        this.price = 0L;
     }
 
     public void addStudent(NsUser student) {
-        if (!(status == SessionStatus.RESITER)) {
+        if (!(status == SessionStatus.REGISTER)) {
             throw new IllegalStateException("This session is not registering now");
         }
         students.add(student);
@@ -62,19 +64,22 @@ public class FreeSession extends Session {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof FreeSession))
+        }
+        if (!(o instanceof FreeSession)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
+        }
         FreeSession that = (FreeSession)o;
         return Objects.equals(id, that.id) && Objects.equals(courseId, that.courseId) && Objects.equals(students,
-            that.students) && status == that.status;
+            that.students) && Objects.equals(price, that.price) && status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, courseId, students, status);
+        return Objects.hash(super.hashCode(), id, courseId, students, price, status);
     }
 }
