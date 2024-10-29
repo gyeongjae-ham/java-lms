@@ -2,6 +2,6 @@ package nextstep.courses.domain;
 
 public enum SessionStatus {
     PREPARE,
-    RESITER,
+    REGISTER,
     CLOSE,
 }
