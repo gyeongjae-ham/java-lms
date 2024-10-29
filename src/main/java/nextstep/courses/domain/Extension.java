@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-enum Extension {
+public enum Extension {
     GIF("gif"),
     JPG("jpg"),
     JPEG("jpeg"),
@@ -21,6 +21,10 @@ enum Extension {
 
     Extension(String extension) {
         this.extension = extension;
+    }
+
+    public static Extension getWithString(String extension) {
+        return cachedExtensions.get(extension);
     }
 
     public static boolean verify(String extension) {
