@@ -20,8 +20,8 @@ class SessionTest {
 
     public static SessionImage createSessionImage() {
         ImageSize imageSize = new ImageSize(300, 200);
-        ImageMetaInfo imageMetaInfo = new ImageMetaInfo(1, Extension.JPG);
-        return new SessionImage(imageSize, imageMetaInfo);
+        ImageMetaData imageMetaData = new ImageMetaData(1, Extension.JPG);
+        return new SessionImage(imageSize, imageMetaData);
     }
 
     public static SessionDate createSessionDate() {
