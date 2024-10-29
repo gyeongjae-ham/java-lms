@@ -14,14 +14,13 @@ enum Extension {
     private final String extension;
     private static final Map<String, Extension> cachedExtensions = new HashMap<>();
 
-    Extension(String extension) {
-        this.extension = extension;
-        cachedExtensions();
+    static {
+        Arrays.stream(Extension.values())
+            .forEach(it -> cachedExtensions.put(it.extension, it));
     }
 
-    private void cachedExtensions() {
-        Arrays.stream(Extension.values())
-            .map(it -> cachedExtensions.put(it.extension, it));
+    Extension(String extension) {
+        this.extension = extension;
     }
 
     public static boolean verify(String extension) {
