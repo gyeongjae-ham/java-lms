@@ -33,6 +33,14 @@ public class Students {
         return this.students.size();
     }
 
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public List<NsUser> getStudents() {
+        return students;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -48,5 +56,13 @@ public class Students {
     @Override
     public int hashCode() {
         return Objects.hashCode(students);
+    }
+
+    @Override
+    public String toString() {
+        return "Students{" +
+            "sessionId=" + sessionId +
+            ", students=" + students +
+            '}';
     }
 }
