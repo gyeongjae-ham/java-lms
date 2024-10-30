@@ -2,6 +2,7 @@ package nextstep.courses.infrastructure;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
@@ -44,7 +45,7 @@ public class JdbcSessionRepository implements SessionRepository {
     }
 
     @Override
-    public Session findById(Long id) {
+    public Optional<Session> findById(Long id) {
         String sql = "select id, course_id, price, status, max_student_size, start_at, end_at, byte_size, width, height, extension, type from session where id = ?";
 
         RowMapper<Session> rowMapper = (rs, rowNum) -> new Session(
@@ -69,7 +70,7 @@ public class JdbcSessionRepository implements SessionRepository {
                 Type.from(rs.getString(12))
             );
 
-        return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, id));
     }
 
     private LocalDateTime toLocalDateTime(Timestamp timestamp) {
