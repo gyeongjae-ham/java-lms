@@ -2,6 +2,7 @@ package nextstep.courses.infrastructure;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -37,5 +38,12 @@ public class SessionRepositoryTest {
         Optional<Session> session2 = sessionRepository.findById(2L);
         assertThat(session1.isPresent()).isTrue();
         assertThat(session2.isPresent()).isTrue();
+    }
+
+    @DisplayName("Teacher id로 해당하는 강의목록을 찾는다")
+    @Test
+    void findByTeacherId() {
+        List<Session> sessions = sessionRepository.findByTeacherId(1L);
+        assertThat(sessions).hasSize(2);
     }
 }
