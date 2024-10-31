@@ -20,14 +20,18 @@ import nextstep.courses.domain.SessionStudent;
 import nextstep.courses.domain.SessionStudentRepository;
 import nextstep.courses.domain.Students;
 import nextstep.qna.NotFoundException;
+import nextstep.users.domain.NsTeacher;
 import nextstep.users.domain.NsUser;
 import nextstep.users.domain.UserRepository;
+import nextstep.users.service.UserService;
 
 @Service("sessionService")
 public class SessionService {
 
     @Resource(name = "sessionRepository")
     private SessionRepository sessionRepository;
+
+    private UserService userService;
 
     @Resource(name = "sessionStudentRepository")
     private SessionStudentRepository sessionStudentRepository;
@@ -65,5 +69,17 @@ public class SessionService {
         session.addImages(new Images(sessionId, imageList));
 
         return session;
+    }
+
+    @Transactional
+    public void addStudent(long sessionId) {
+        Session session = findSessionWithId(sessionId);
+        NsTeacher teacher = userService.findTeacherWithId(session.getTeacherId());
+        List<SessionStudent> sessionStudents = sessionStudentRepository.findAllBySessionId(sessionId);
+
+        List<Long> registerStudents = teacher.findRegisterStudents(sessionId, sessionStudents);
+        Students students = new Students(sessionId, userService.findAllStudentsByIds(registerStudents));
+
+        teacher.addStudent(sessionId, students);
     }
 }
