@@ -59,4 +59,24 @@ public class StudentsTest {
 
         assertThat(sut).isEqualTo(new SessionStudent(1L, 1L, SessionStudentStatus.REGISTERED));
     }
+
+    @DisplayName("SessionStudent 목록에 있는 학생들의 상태를 CANCELED로 변경한다")
+    @Test
+    void toCanceled() {
+        List<NsUser> studentList = List.of(
+            NsUserTest.JAVAJIGI,
+            NsUserTest.SANJIGI
+        );
+        Students students = new Students(1L, studentList);
+
+        SessionStudent sut = new SessionStudent(1L, 1L, SessionStudentStatus.FAIL);
+        List<SessionStudent> sessionStudents = List.of(
+            sut,
+            new SessionStudent(1L, 2L, SessionStudentStatus.FAIL)
+        );
+
+        students.toCancel(sessionStudents);
+
+        assertThat(sut).isEqualTo(new SessionStudent(1L, 1L, SessionStudentStatus.CANCELLED));
+    }
 }

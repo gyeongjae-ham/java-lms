@@ -43,6 +43,16 @@ public class Students {
             .forEach(SessionStudent::toRegistered);
     }
 
+    public void toCancel(List<SessionStudent> sessionStudents) {
+        List<Long> studentIds = students.stream()
+            .map(NsUser::getId)
+            .collect(Collectors.toList());
+
+        sessionStudents.stream()
+            .filter(sessionStudent -> studentIds.contains(sessionStudent.getStudentId()))
+            .forEach(SessionStudent::toCanceled);
+    }
+
     public Long getSessionId() {
         return sessionId;
     }
