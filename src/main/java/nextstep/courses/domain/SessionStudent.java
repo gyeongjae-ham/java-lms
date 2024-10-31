@@ -6,7 +6,7 @@ public class SessionStudent {
     private final long id;
     private final long sessionId;
     private final long studentId;
-    private final SessionStudentStatus sessionStudentStatus;
+    private SessionStudentStatus sessionStudentStatus;
 
     public SessionStudent(long sessionId, long studentId) {
         this(0L, sessionId, studentId, SessionStudentStatus.PASS);
@@ -37,6 +37,10 @@ public class SessionStudent {
 
     public boolean checkPass() {
         return SessionStudentStatus.checkPass(sessionStudentStatus);
+    }
+
+    public void toRegistered() {
+        this.sessionStudentStatus = SessionStudentStatus.REGISTERED;
     }
 
     @Override
