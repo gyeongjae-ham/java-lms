@@ -39,8 +39,16 @@ public class SessionStudent {
         return SessionStudentStatus.checkPass(sessionStudentStatus);
     }
 
+    public boolean checkFail() {
+        return SessionStudentStatus.checkFail(sessionStudentStatus);
+    }
+
     public void toRegistered() {
         this.sessionStudentStatus = SessionStudentStatus.REGISTERED;
+    }
+
+    public void toCanceled() {
+        this.sessionStudentStatus = SessionStudentStatus.CANCELLED;
     }
 
     @Override
