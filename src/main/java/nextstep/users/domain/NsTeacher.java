@@ -43,6 +43,18 @@ public class NsTeacher {
             .collect(Collectors.toList());
     }
 
+    public List<Long> findCancelStudents(long sessionId, List<SessionStudent> sessionStudents) {
+        if (isNotOwnSession(sessionId)) {
+            throw new IllegalArgumentException("Not matched session teacher");
+        }
+
+        return sessionStudents.stream()
+            .filter(it -> it.getSessionId() == sessionId)
+            .filter(SessionStudent::checkFail)
+            .map(SessionStudent::getStudentId)
+            .collect(Collectors.toList());
+    }
+
     public void addStudent(long sessionId, Students students, List<SessionStudent> sessionStudents) {
         if (isNotOwnSession(sessionId)) {
             throw new IllegalArgumentException("Not matched session teacher");
@@ -52,6 +64,10 @@ public class NsTeacher {
         session.addStudents(students);
 
         students.toRegistered(sessionStudents);
+    }
+
+    public void studentCancel(Students students, List<SessionStudent> sessionStudents) {
+        students.toCancel(sessionStudents);
     }
 
     public Long getId() {

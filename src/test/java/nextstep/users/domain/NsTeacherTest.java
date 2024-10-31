@@ -20,7 +20,7 @@ class NsTeacherTest {
 
     @DisplayName("강사가 본인 강의에 선발된 인원을 추가한다")
     @Test
-    void findStudentsOwnSession() {
+    void findRegisterStudentsOwnSession() {
         List<SessionStudent> sessionStudents = List.of(
             new SessionStudent(1L, 1L, SessionStudentStatus.PASS),
             new SessionStudent(1L, 2L, SessionStudentStatus.FAIL),
@@ -91,7 +91,7 @@ class NsTeacherTest {
 
     @DisplayName("강사가 강의에 학생을 추가한다")
     @Test
-    void addStudentOwnSession() {
+    void addRegisterStudentOwnSession() {
         List<NsUser> studentList = List.of(
             NsUserTest.JAVAJIGI,
             NsUserTest.SANJIGI,
@@ -110,5 +110,30 @@ class NsTeacherTest {
         teacher.addStudent(2L, students, List.of());
 
         assertThat(teacher.getSessions().size()).isEqualTo(3);
+    }
+
+    @DisplayName("강사가 선발되지 않은 학생들을 찾는다")
+    @Test
+    void findCancelStudentOwnSession() {
+        List<SessionStudent> sessionStudents = List.of(
+            new SessionStudent(1L, 1L, SessionStudentStatus.PASS),
+            new SessionStudent(1L, 2L, SessionStudentStatus.FAIL),
+            new SessionStudent(1L, 3L, SessionStudentStatus.FAIL),
+            new SessionStudent(1L, 4L, SessionStudentStatus.FAIL)
+        );
+
+        List<Session> sessionList = List.of(
+            SessionTestFixture.createFreeSession(1L, SessionStatus.PREPARE, RegisterStatus.REGISTER),
+            SessionTestFixture.createFreeSession(2L, SessionStatus.PREPARE, RegisterStatus.REGISTER),
+            SessionTestFixture.createFreeSession(3L, SessionStatus.PREPARE, RegisterStatus.REGISTER),
+            SessionTestFixture.createFreeSession(4L, SessionStatus.PREPARE, RegisterStatus.REGISTER)
+        );
+        Sessions sessions = new Sessions(sessionList);
+
+        NsTeacher teacher = new NsTeacher("testTeacher", sessions);
+        List<Long> cancelStudents = teacher.findCancelStudents(1L, sessionStudents);
+
+        assertThat(cancelStudents).hasSize(3);
+        assertThat(cancelStudents).containsExactlyInAnyOrder(2L, 3L, 4L);
     }
 }
