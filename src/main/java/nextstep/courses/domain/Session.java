@@ -15,33 +15,20 @@ public class Session {
     private final RegisterStatus registerStatus;
     private final Integer maxStudentSize;
     private final SessionDate sessionDate;
-    private final SessionImage sessionImage;
+    private Images sessionImages;
     private final Type sessionType;
 
     public Session(
-        Long courseId,
-        Long price,
-        SessionStatus sessionStatus,
-        RegisterStatus registerStatus,
-        Integer maxStudentSize,
-        SessionDate sessionDate,
-        SessionImage sessionImage,
-        Type sessionType) {
-
-        this(0L, courseId, new Students(0L), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImage, sessionType);
-    }
-
-    public Session(
         Long id,
         Long courseId,
         Long price,
         SessionStatus sessionStatus,
         RegisterStatus registerStatus,
+        int maxStudentSize,
         SessionDate sessionDate,
-        SessionImage sessionImage,
         Type sessionType) {
 
-        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, 0, sessionDate, sessionImage, sessionType);
+        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, new Images(id), sessionType);
     }
 
     public Session(
@@ -52,10 +39,10 @@ public class Session {
         RegisterStatus registerStatus,
         Integer maxStudentSize,
         SessionDate sessionDate,
-        SessionImage sessionImage,
+        Images sessionImages,
         Type sessionType) {
 
-        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImage, sessionType);
+        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImages, sessionType);
     }
 
     public Session(
@@ -67,7 +54,7 @@ public class Session {
         RegisterStatus registerStatus,
         Integer maxStudentSize,
         SessionDate sessionDate,
-        SessionImage sessionImage,
+        Images sessionImages,
         Type sessionType) {
 
         checkFreeStudentSize(maxStudentSize, sessionType);
@@ -79,7 +66,7 @@ public class Session {
         this.registerStatus = registerStatus;
         this.maxStudentSize = maxStudentSize;
         this.sessionDate = sessionDate;
-        this.sessionImage = sessionImage;
+        this.sessionImages = sessionImages;
         this.sessionType = sessionType;
     }
 
@@ -115,6 +102,10 @@ public class Session {
 
     public void addStudents(Students students) {
         this.students = students;
+    }
+
+    public void addImages(Images images) {
+        this.sessionImages = images;
     }
 
     private void checkFreeStudentSize(int maxStudentSize, Type sessionType) {
@@ -184,8 +175,8 @@ public class Session {
         return sessionDate;
     }
 
-    public SessionImage getSessionImage() {
-        return sessionImage;
+    public Images getSessionImages() {
+        return sessionImages;
     }
 
     public Type getSessionType() {
@@ -203,12 +194,12 @@ public class Session {
             && Objects.equals(getStudents(), session.getStudents()) && Objects.equals(getPrice(), session.getPrice())
             && getSessionStatus() == session.getSessionStatus() && getRegisterStatus() == session.getRegisterStatus() && Objects.equals(
             getMaxStudentSize(), session.getMaxStudentSize()) && Objects.equals(getSessionDate(), session.getSessionDate())
-            && Objects.equals(getSessionImage(), session.getSessionImage()) && getSessionType() == session.getSessionType();
+            && Objects.equals(getSessionImages(), session.getSessionImages()) && getSessionType() == session.getSessionType();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getCourseId(), getStudents(), getPrice(), getSessionStatus(), getRegisterStatus(), getMaxStudentSize(),
-            getSessionDate(), getSessionImage(), getSessionType());
+            getSessionDate(), getSessionImages(), getSessionType());
     }
 }
