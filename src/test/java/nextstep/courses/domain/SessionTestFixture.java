@@ -10,14 +10,14 @@ public class SessionTestFixture {
         SessionDate sessionDate = createSessionDate();
         Images sessionImages = createSessionImages();
 
-        return new Session(id, 1L, 3000L, sessionStatus, registerStatus, 0, sessionDate, sessionImages, Type.FREE);
+        return new Session(id, 1L, 1L, 3000L, sessionStatus, registerStatus, 0, sessionDate, sessionImages, Type.FREE);
     }
 
     public static Session createPaidSession(Long id, long price, int maxSize, SessionStatus sessionStatus, RegisterStatus registerStatus) {
         SessionDate sessionDate = createSessionDate();
         Images sessionImages = createSessionImages();
 
-        return new Session(id, 1L, price, sessionStatus, registerStatus, maxSize, sessionDate, sessionImages, Type.PAID);
+        return new Session(id, 1L, 1L, price, sessionStatus, registerStatus, maxSize, sessionDate, sessionImages, Type.PAID);
     }
 
     public static Image createSessionImage() {

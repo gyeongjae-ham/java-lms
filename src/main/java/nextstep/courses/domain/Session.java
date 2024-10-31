@@ -9,6 +9,7 @@ public class Session {
 
     private final Long id;
     private final Long courseId;
+    private final Long teacherId;
     private Students students;
     private final Long price;
     private final SessionStatus sessionStatus;
@@ -21,6 +22,7 @@ public class Session {
     public Session(
         Long id,
         Long courseId,
+        Long teacherId,
         Long price,
         SessionStatus sessionStatus,
         RegisterStatus registerStatus,
@@ -28,12 +30,13 @@ public class Session {
         SessionDate sessionDate,
         Type sessionType) {
 
-        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, new Images(id), sessionType);
+        this(id, courseId, teacherId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, new Images(id), sessionType);
     }
 
     public Session(
         Long id,
         Long courseId,
+        Long teacherId,
         Long price,
         SessionStatus sessionStatus,
         RegisterStatus registerStatus,
@@ -42,12 +45,13 @@ public class Session {
         Images sessionImages,
         Type sessionType) {
 
-        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImages, sessionType);
+        this(id, courseId, teacherId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImages, sessionType);
     }
 
     public Session(
         Long id,
         Long courseId,
+        Long teacherId,
         Students students,
         Long price,
         SessionStatus sessionStatus,
@@ -60,6 +64,7 @@ public class Session {
         checkFreeStudentSize(maxStudentSize, sessionType);
         this.id = id;
         this.courseId = courseId;
+        this.teacherId = teacherId;
         this.students = students;
         this.price = price;
         this.sessionStatus = sessionStatus;
@@ -149,6 +154,10 @@ public class Session {
 
     public Long getCourseId() {
         return courseId;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
     }
 
     public Students getStudents() {
