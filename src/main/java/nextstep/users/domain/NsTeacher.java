@@ -43,13 +43,15 @@ public class NsTeacher {
             .collect(Collectors.toList());
     }
 
-    public void addStudent(long sessionId, Students students) {
+    public void addStudent(long sessionId, Students students, List<SessionStudent> sessionStudents) {
         if (isNotOwnSession(sessionId)) {
             throw new IllegalArgumentException("Not matched session teacher");
         }
 
         Session session = getSession(sessionId);
         session.addStudents(students);
+
+        students.toRegistered(sessionStudents);
     }
 
     public Long getId() {

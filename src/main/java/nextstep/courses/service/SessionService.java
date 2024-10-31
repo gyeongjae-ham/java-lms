@@ -80,6 +80,6 @@ public class SessionService {
         List<Long> registerStudents = teacher.findRegisterStudents(sessionId, sessionStudents);
         Students students = new Students(sessionId, userService.findAllStudentsByIds(registerStudents));
 
-        teacher.addStudent(sessionId, students);
+        teacher.addStudent(sessionId, students, sessionStudents);
     }
 }

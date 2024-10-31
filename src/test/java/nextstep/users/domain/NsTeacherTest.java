@@ -85,7 +85,7 @@ class NsTeacherTest {
 
         NsTeacher teacher = new NsTeacher("testTeacher", sessions);
 
-        assertThatThrownBy(() -> teacher.addStudent(1L, students))
+        assertThatThrownBy(() -> teacher.addStudent(1L, students, List.of()))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -107,7 +107,7 @@ class NsTeacherTest {
         Sessions sessions = new Sessions(sessionList);
 
         NsTeacher teacher = new NsTeacher("testTeacher", sessions);
-        teacher.addStudent(2L, students);
+        teacher.addStudent(2L, students, List.of());
 
         assertThat(teacher.getSessions().size()).isEqualTo(3);
     }
