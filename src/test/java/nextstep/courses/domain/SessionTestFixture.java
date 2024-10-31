@@ -4,18 +4,18 @@ import java.time.LocalDateTime;
 
 public class SessionTestFixture {
 
-    public static Session createFreeSession(Long id, SessionStatus status) {
+    public static Session createFreeSession(Long id, SessionStatus sessionStatus, RegisterStatus registerStatus) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new Session(id, 1L, 3000L, status, 0, sessionDate, sessionImage, Type.FREE);
+        return new Session(id, 1L, 3000L, sessionStatus, registerStatus, 0, sessionDate, sessionImage, Type.FREE);
     }
 
-    public static Session createPaidSession(Long id, long price, int maxSize, SessionStatus status) {
+    public static Session createPaidSession(Long id, long price, int maxSize, SessionStatus sessionStatus, RegisterStatus registerStatus) {
         SessionDate sessionDate = createSessionDate();
         SessionImage sessionImage = createSessionImage();
 
-        return new Session(id, 1L, price, status, maxSize, sessionDate, sessionImage, Type.PAID);
+        return new Session(id, 1L, price, sessionStatus, registerStatus, maxSize, sessionDate, sessionImage, Type.PAID);
     }
 
     public static SessionImage createSessionImage() {

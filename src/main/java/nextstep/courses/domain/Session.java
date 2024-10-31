@@ -11,7 +11,8 @@ public class Session {
     private final Long courseId;
     private Students students;
     private final Long price;
-    private final SessionStatus status;
+    private final SessionStatus sessionStatus;
+    private final RegisterStatus registerStatus;
     private final Integer maxStudentSize;
     private final SessionDate sessionDate;
     private final SessionImage sessionImage;
@@ -20,38 +21,41 @@ public class Session {
     public Session(
         Long courseId,
         Long price,
-        SessionStatus status,
+        SessionStatus sessionStatus,
+        RegisterStatus registerStatus,
         Integer maxStudentSize,
         SessionDate sessionDate,
         SessionImage sessionImage,
         Type sessionType) {
 
-        this(0L, courseId, new Students(0L), price, status, maxStudentSize, sessionDate, sessionImage, sessionType);
+        this(0L, courseId, new Students(0L), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImage, sessionType);
     }
 
     public Session(
         Long id,
         Long courseId,
         Long price,
-        SessionStatus status,
+        SessionStatus sessionStatus,
+        RegisterStatus registerStatus,
         SessionDate sessionDate,
         SessionImage sessionImage,
         Type sessionType) {
 
-        this(id, courseId, new Students(id), price, status, 0, sessionDate, sessionImage, sessionType);
+        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, 0, sessionDate, sessionImage, sessionType);
     }
 
     public Session(
         Long id,
         Long courseId,
         Long price,
-        SessionStatus status,
+        SessionStatus sessionStatus,
+        RegisterStatus registerStatus,
         Integer maxStudentSize,
         SessionDate sessionDate,
         SessionImage sessionImage,
         Type sessionType) {
 
-        this(id, courseId, new Students(id), price, status, maxStudentSize, sessionDate, sessionImage, sessionType);
+        this(id, courseId, new Students(id), price, sessionStatus, registerStatus, maxStudentSize, sessionDate, sessionImage, sessionType);
     }
 
     public Session(
@@ -59,7 +63,8 @@ public class Session {
         Long courseId,
         Students students,
         Long price,
-        SessionStatus status,
+        SessionStatus sessionStatus,
+        RegisterStatus registerStatus,
         Integer maxStudentSize,
         SessionDate sessionDate,
         SessionImage sessionImage,
@@ -70,7 +75,8 @@ public class Session {
         this.courseId = courseId;
         this.students = students;
         this.price = price;
-        this.status = status;
+        this.sessionStatus = sessionStatus;
+        this.registerStatus = registerStatus;
         this.maxStudentSize = maxStudentSize;
         this.sessionDate = sessionDate;
         this.sessionImage = sessionImage;
@@ -82,7 +88,7 @@ public class Session {
     }
 
     public void register(Payment payment, NsUser student) {
-        if (SessionStatus.isNotRegister(status)) {
+        if (SessionStatus.cannotRegister(sessionStatus) || RegisterStatus.isNotRegister(registerStatus)) {
             throw new IllegalStateException("This session is not registering now");
         }
 
@@ -97,7 +103,7 @@ public class Session {
     }
 
     public void register(NsUser student) {
-        if (SessionStatus.isNotRegister(status)) {
+        if (SessionStatus.cannotRegister(sessionStatus) || RegisterStatus.isNotRegister(registerStatus)) {
             throw new IllegalStateException("This session is not registering now");
         }
 
@@ -162,8 +168,12 @@ public class Session {
         return price;
     }
 
-    public SessionStatus getStatus() {
-        return status;
+    public SessionStatus getSessionStatus() {
+        return sessionStatus;
+    }
+
+    public RegisterStatus getRegisterStatus() {
+        return registerStatus;
     }
 
     public Integer getMaxStudentSize() {
@@ -184,23 +194,21 @@ public class Session {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
+        if (this == o)
             return true;
-        }
-        if (!(o instanceof Session)) {
+        if (!(o instanceof Session))
             return false;
-        }
         Session session = (Session)o;
         return Objects.equals(getId(), session.getId()) && Objects.equals(getCourseId(), session.getCourseId())
             && Objects.equals(getStudents(), session.getStudents()) && Objects.equals(getPrice(), session.getPrice())
-            && getStatus() == session.getStatus() && Objects.equals(getMaxStudentSize(), session.getMaxStudentSize())
-            && Objects.equals(getSessionDate(), session.getSessionDate()) && Objects.equals(getSessionImage(),
-            session.getSessionImage()) && getSessionType() == session.getSessionType();
+            && getSessionStatus() == session.getSessionStatus() && getRegisterStatus() == session.getRegisterStatus() && Objects.equals(
+            getMaxStudentSize(), session.getMaxStudentSize()) && Objects.equals(getSessionDate(), session.getSessionDate())
+            && Objects.equals(getSessionImage(), session.getSessionImage()) && getSessionType() == session.getSessionType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCourseId(), getStudents(), getPrice(), getStatus(), getMaxStudentSize(), getSessionDate(), getSessionImage(),
-            getSessionType());
+        return Objects.hash(getId(), getCourseId(), getStudents(), getPrice(), getSessionStatus(), getRegisterStatus(), getMaxStudentSize(),
+            getSessionDate(), getSessionImage(), getSessionType());
     }
 }
