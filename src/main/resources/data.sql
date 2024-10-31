@@ -21,3 +21,13 @@ VALUES (1, 1, 3000, 'prepare', 'register', current_timestamp, current_timestamp,
 
 INSERT INTO new_session (id, course_id, session_status, register_status, start_at, end_at, byte_size, width, height, extension, type)
 VALUES (2, 1, 'progress','register', current_timestamp, current_timestamp, 1, 300, 200, 'png', 'free');
+
+INSERT INTO new_session2 (id, course_id, price, session_status, register_status, start_at, end_at, type, max_student_size)
+VALUES (1, 1, 3000, 'prepare', 'register', current_timestamp, current_timestamp, 'paid', 5);
+
+INSERT INTO new_session2 (id, course_id, session_status, register_status, start_at, end_at, type)
+VALUES (2, 1, 'progress','register', current_timestamp, current_timestamp, 'free');
+
+INSERT INTO image (id, byte_size, width, height) VALUES (1, 1, 300, 200);
+INSERT INTO image (id, byte_size, width, height) VALUES (2, 1, 300, 200);
+INSERT INTO image (id, byte_size, width, height) VALUES (3, 1, 300, 200);
