@@ -82,4 +82,16 @@ public class SessionService {
 
         teacher.addStudent(sessionId, students, sessionStudents);
     }
+
+    @Transactional
+    public void cancelStudent(long sessionId) {
+        Session session = findSessionWithId(sessionId);
+        NsTeacher teacher = userService.findTeacherWithId(session.getTeacherId());
+        List<SessionStudent> sessionStudents = sessionStudentRepository.findAllBySessionId(sessionId);
+
+        List<Long> cancelStudents = teacher.findCancelStudents(sessionId, sessionStudents);
+        Students students = new Students(sessionId, userService.findAllStudentsByIds(cancelStudents));
+
+        teacher.studentCancel(students, sessionStudents);
+    }
 }
