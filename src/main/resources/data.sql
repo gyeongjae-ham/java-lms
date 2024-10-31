@@ -28,6 +28,15 @@ VALUES (1, 1, 3000, 'prepare', 'register', current_timestamp, current_timestamp,
 INSERT INTO new_session2 (id, course_id, session_status, register_status, start_at, end_at, type)
 VALUES (2, 1, 'progress','register', current_timestamp, current_timestamp, 'free');
 
+INSERT INTO new_session2 (id, course_id, teacher_id, price, session_status, register_status, start_at, end_at, type, max_student_size)
+VALUES (3, 1, 1, 3000, 'prepare', 'register', current_timestamp, current_timestamp, 'paid', 5);
+
+INSERT INTO new_session2 (id, course_id, teacher_id, session_status, register_status, start_at, end_at, type)
+VALUES (4, 1, 1, 'progress','register', current_timestamp, current_timestamp, 'free');
+
 INSERT INTO image (id, byte_size, width, height) VALUES (1, 1, 300, 200);
 INSERT INTO image (id, byte_size, width, height) VALUES (2, 1, 300, 200);
 INSERT INTO image (id, byte_size, width, height) VALUES (3, 1, 300, 200);
+
+INSERT INTO ns_teacher (id, name)
+VALUES (1, 'testTeacher');
