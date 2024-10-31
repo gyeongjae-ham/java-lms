@@ -6,15 +6,21 @@ public class SessionStudent {
     private final long id;
     private final long sessionId;
     private final long studentId;
+    private final SessionStudentStatus sessionStudentStatus;
 
     public SessionStudent(long sessionId, long studentId) {
-        this(0L, sessionId, studentId);
+        this(0L, sessionId, studentId, SessionStudentStatus.PASS);
     }
 
-    public SessionStudent(long id, long sessionId, long studentId) {
+    public SessionStudent(long sessionId, long studentId, SessionStudentStatus sessionStudentStatus) {
+        this(0L, sessionId, studentId, sessionStudentStatus);
+    }
+
+    public SessionStudent(long id, long sessionId, long studentId, SessionStudentStatus sessionStudentStatus) {
         this.id = id;
         this.sessionId = sessionId;
         this.studentId = studentId;
+        this.sessionStudentStatus = sessionStudentStatus;
     }
 
     public long getSessionId() {
@@ -25,6 +31,14 @@ public class SessionStudent {
         return studentId;
     }
 
+    public SessionStudentStatus getSessionStudentStatus() {
+        return sessionStudentStatus;
+    }
+
+    public boolean checkPass() {
+        return SessionStudentStatus.checkPass(sessionStudentStatus);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -32,11 +46,12 @@ public class SessionStudent {
         if (!(o instanceof SessionStudent))
             return false;
         SessionStudent that = (SessionStudent)o;
-        return id == that.id && sessionId == that.sessionId && studentId == that.studentId;
+        return id == that.id && getSessionId() == that.getSessionId() && getStudentId() == that.getStudentId()
+            && sessionStudentStatus == that.sessionStudentStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sessionId, studentId);
+        return Objects.hash(id, getSessionId(), getStudentId(), sessionStudentStatus);
     }
 }

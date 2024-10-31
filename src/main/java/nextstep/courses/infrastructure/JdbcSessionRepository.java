@@ -2,6 +2,7 @@ package nextstep.courses.infrastructure;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcOperations;
@@ -25,10 +26,11 @@ public class JdbcSessionRepository implements SessionRepository {
 
     @Override
     public int save(Session session) {
-        String sql = "insert into new_session (course_id, price, session_status, register_status, max_student_size, start_at, end_at, type) "
-            + "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into new_session2 (course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type) "
+            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
             session.getCourseId(),
+            session.getTeacherId(),
             session.getPrice(),
             session.getSessionStatus().toString(),
             session.getRegisterStatus().toString(),
@@ -40,23 +42,46 @@ public class JdbcSessionRepository implements SessionRepository {
 
     @Override
     public Optional<Session> findById(Long id) {
-        String sql = "select id, course_id, price, session_status, register_status, max_student_size, start_at, end_at, type from new_session where id = ?";
+        String sql = "select id, course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type from new_session2 where id = ?";
 
         RowMapper<Session> rowMapper = (rs, rowNum) -> new Session(
                 rs.getLong(1),
                 rs.getLong(2),
                 rs.getLong(3),
-                SessionStatus.from(rs.getString(4)),
-                RegisterStatus.from(rs.getString(5)),
-                rs.getInt(6),
+                rs.getLong(4),
+                SessionStatus.from(rs.getString(5)),
+                RegisterStatus.from(rs.getString(6)),
+                rs.getInt(7),
                 new SessionDate(
-                    toLocalDateTime(rs.getTimestamp(7)),
-                    toLocalDateTime(rs.getTimestamp(8))
+                    toLocalDateTime(rs.getTimestamp(8)),
+                    toLocalDateTime(rs.getTimestamp(9))
                 ),
-                Type.from(rs.getString(9))
+                Type.from(rs.getString(10))
             );
 
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, id));
+    }
+
+    @Override
+    public List<Session> findByTeacherId(Long teacherId) {
+        String sql = "select id, course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type from new_session2 where teacher_id = ?";
+
+        RowMapper<Session> rowMapper = (rs, rowNum) -> new Session(
+            rs.getLong(1),
+            rs.getLong(2),
+            rs.getLong(3),
+            rs.getLong(4),
+            SessionStatus.from(rs.getString(5)),
+            RegisterStatus.from(rs.getString(6)),
+            rs.getInt(7),
+            new SessionDate(
+                toLocalDateTime(rs.getTimestamp(8)),
+                toLocalDateTime(rs.getTimestamp(9))
+            ),
+            Type.from(rs.getString(10))
+        );
+
+        return jdbcTemplate.query(sql, rowMapper, teacherId);
     }
 
     private LocalDateTime toLocalDateTime(Timestamp timestamp) {
