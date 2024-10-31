@@ -34,6 +34,6 @@ public enum Extension {
     }
 
     public static boolean verify(String extension) {
-        return getCachedExtensions().get(extension) != null;
+        return getCachedExtensions().containsKey(extension);
     }
 }
