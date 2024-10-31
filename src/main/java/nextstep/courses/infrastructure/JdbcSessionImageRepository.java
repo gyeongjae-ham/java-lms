@@ -2,8 +2,6 @@ package nextstep.courses.infrastructure;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,11 +10,9 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import nextstep.courses.domain.Image;
 import nextstep.courses.domain.SessionImage;
 import nextstep.courses.domain.SessionImageRepository;
 import nextstep.courses.domain.Images;
-import nextstep.courses.domain.SessionStudent;
 
 @Repository("sessionImageRepository")
 public class JdbcSessionImageRepository implements SessionImageRepository {
