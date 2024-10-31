@@ -8,13 +8,9 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import nextstep.courses.domain.Extension;
-import nextstep.courses.domain.ImageMetaData;
-import nextstep.courses.domain.ImageSize;
 import nextstep.courses.domain.RegisterStatus;
 import nextstep.courses.domain.Session;
 import nextstep.courses.domain.SessionDate;
-import nextstep.courses.domain.SessionImage;
 import nextstep.courses.domain.SessionRepository;
 import nextstep.courses.domain.SessionStatus;
 import nextstep.courses.domain.Type;
@@ -29,8 +25,8 @@ public class JdbcSessionRepository implements SessionRepository {
 
     @Override
     public int save(Session session) {
-        String sql = "insert into new_session (course_id, price, session_status, register_status, max_student_size, start_at, end_at, byte_size, width, height, extension, type) "
-            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into new_session (course_id, price, session_status, register_status, max_student_size, start_at, end_at, type) "
+            + "values (?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
             session.getCourseId(),
             session.getPrice(),
@@ -39,16 +35,12 @@ public class JdbcSessionRepository implements SessionRepository {
             session.getMaxStudentSize(),
             session.getSessionDate().getStart(),
             session.getSessionDate().getEnd(),
-            session.getSessionImage().getMetaInfo().getByteSize(),
-            session.getSessionImage().getImageSize().getWidth(),
-            session.getSessionImage().getImageSize().getHeight(),
-            session.getSessionImage().getMetaInfo().getExtension().toString(),
             session.getSessionType().toString());
     }
 
     @Override
     public Optional<Session> findById(Long id) {
-        String sql = "select id, course_id, price, session_status, register_status, max_student_size, start_at, end_at, byte_size, width, height, extension, type from new_session where id = ?";
+        String sql = "select id, course_id, price, session_status, register_status, max_student_size, start_at, end_at, type from new_session where id = ?";
 
         RowMapper<Session> rowMapper = (rs, rowNum) -> new Session(
                 rs.getLong(1),
@@ -61,16 +53,7 @@ public class JdbcSessionRepository implements SessionRepository {
                     toLocalDateTime(rs.getTimestamp(7)),
                     toLocalDateTime(rs.getTimestamp(8))
                 ),
-                new SessionImage(
-                    new ImageSize(
-                        rs.getInt(10),
-                        rs.getInt(11)),
-                    new ImageMetaData(
-                        rs.getInt(9),
-                        Extension.getWithString(rs.getString(12))
-                    )
-                ),
-                Type.from(rs.getString(13))
+                Type.from(rs.getString(9))
             );
 
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, id));
