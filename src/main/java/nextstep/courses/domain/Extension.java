@@ -19,21 +19,15 @@ public enum Extension {
     }
 
     private static Map<String, Extension> getCachedExtensions() {
-        if (cachedExtensions == null) {
-            cachedExtensions = Arrays.stream(Extension.values())
-                .collect(Collectors.toMap(
-                    ext -> ext.extension,
-                    ext -> ext
-                ));
-        }
+        cachedExtensions = Arrays.stream(Extension.values())
+            .collect(Collectors.toMap(
+                ext -> ext.extension,
+                ext -> ext
+            ));
         return cachedExtensions;
     }
 
     public static Extension getWithString(String extension) {
         return getCachedExtensions().get(extension);
-    }
-
-    public static boolean verify(String extension) {
-        return getCachedExtensions().containsKey(extension);
     }
 }
