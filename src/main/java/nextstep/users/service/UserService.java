@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import nextstep.courses.domain.Session;
@@ -16,6 +17,7 @@ import nextstep.users.domain.NsUser;
 import nextstep.users.domain.TeacherRepository;
 import nextstep.users.domain.UserRepository;
 
+@Service
 public class UserService {
     @Resource(name = "teacherRepository")
     private TeacherRepository teacherRepository;
