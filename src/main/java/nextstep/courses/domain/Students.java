@@ -33,7 +33,7 @@ public class Students {
         return this.students.size();
     }
 
-    public void toRegistered(List<SessionStudent> sessionStudents) {
+    public List<SessionStudent> toRegistered(List<SessionStudent> sessionStudents) {
         List<Long> studentIds = students.stream()
             .map(NsUser::getId)
             .collect(Collectors.toList());
@@ -41,9 +41,11 @@ public class Students {
         sessionStudents.stream()
             .filter(sessionStudent -> studentIds.contains(sessionStudent.getStudentId()))
             .forEach(SessionStudent::toRegistered);
+
+        return sessionStudents;
     }
 
-    public void toCancel(List<SessionStudent> sessionStudents) {
+    public List<SessionStudent> toCancel(List<SessionStudent> sessionStudents) {
         List<Long> studentIds = students.stream()
             .map(NsUser::getId)
             .collect(Collectors.toList());
@@ -51,6 +53,8 @@ public class Students {
         sessionStudents.stream()
             .filter(sessionStudent -> studentIds.contains(sessionStudent.getStudentId()))
             .forEach(SessionStudent::toCanceled);
+
+        return sessionStudents;
     }
 
     public Long getSessionId() {
