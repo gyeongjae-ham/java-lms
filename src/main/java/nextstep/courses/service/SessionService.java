@@ -18,6 +18,7 @@ import nextstep.courses.domain.SessionImageRepository;
 import nextstep.courses.domain.SessionRepository;
 import nextstep.courses.domain.SessionStudent;
 import nextstep.courses.domain.SessionStudentRepository;
+import nextstep.courses.domain.SessionStudentStatus;
 import nextstep.courses.domain.Students;
 import nextstep.qna.NotFoundException;
 import nextstep.users.domain.NsTeacher;
@@ -31,6 +32,7 @@ public class SessionService {
     @Resource(name = "sessionRepository")
     private SessionRepository sessionRepository;
 
+    @Resource(name = "userService")
     private UserService userService;
 
     @Resource(name = "sessionStudentRepository")
@@ -50,6 +52,7 @@ public class SessionService {
         Session session = sessionRepository.findById(sessionId).orElseThrow(NotFoundException::new);
 
         List<Long> studentIds = sessionStudentRepository.findAllBySessionId(sessionId).stream()
+            .filter(it -> it.getSessionStudentStatus() == SessionStudentStatus.REGISTERED)
             .map(SessionStudent::getStudentId)
             .collect(Collectors.toList());
         List<NsUser> studentList = new ArrayList<>();
@@ -80,7 +83,9 @@ public class SessionService {
         List<Long> registerStudents = teacher.findRegisterStudents(sessionId, sessionStudents);
         Students students = new Students(sessionId, userService.findAllStudentsByIds(registerStudents));
 
-        teacher.addStudent(sessionId, students, sessionStudents);
+        List<SessionStudent> updatedSessionStudents = teacher.addStudent(sessionId, students, sessionStudents);
+
+        sessionStudentRepository.saveAll(updatedSessionStudents);
     }
 
     @Transactional
@@ -92,6 +97,8 @@ public class SessionService {
         List<Long> cancelStudents = teacher.findCancelStudents(sessionId, sessionStudents);
         Students students = new Students(sessionId, userService.findAllStudentsByIds(cancelStudents));
 
-        teacher.studentCancel(students, sessionStudents);
+        List<SessionStudent> canceledStudents = teacher.studentCancel(students, sessionStudents);
+
+        sessionStudentRepository.saveAll(canceledStudents);
     }
 }
