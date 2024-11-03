@@ -27,7 +27,7 @@ public class JdbcSessionRepository implements SessionRepository {
     @Override
     public int save(Session session) {
         String sql =
-            "insert into new_session (course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type) "
+            "insert into session (course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type) "
                 + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
             session.getCourseId(),
@@ -43,7 +43,7 @@ public class JdbcSessionRepository implements SessionRepository {
 
     @Override
     public Optional<Session> findById(Long id) {
-        String sql = "select id, course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type from new_session where id = ?";
+        String sql = "select id, course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type from session where id = ?";
 
         RowMapper<Session> rowMapper = (rs, rowNum) -> new Session(
             rs.getLong(1),
@@ -65,7 +65,7 @@ public class JdbcSessionRepository implements SessionRepository {
 
     @Override
     public List<Session> findByTeacherId(Long teacherId) {
-        String sql = "select id, course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type from new_session where teacher_id = ?";
+        String sql = "select id, course_id, teacher_id, price, session_status, register_status, max_student_size, start_at, end_at, type from session where teacher_id = ?";
 
         RowMapper<Session> rowMapper = (rs, rowNum) -> new Session(
             rs.getLong(1),

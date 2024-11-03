@@ -34,8 +34,8 @@ public class SessionRepositoryTest {
     @DisplayName("Session id로 해당 강의 찾는다")
     @Test
     void findById() {
-        Optional<Session> session1 = sessionRepository.findById(1L);
-        Optional<Session> session2 = sessionRepository.findById(2L);
+        Optional<Session> session1 = sessionRepository.findById(3L);
+        Optional<Session> session2 = sessionRepository.findById(4L);
         assertThat(session1.isPresent()).isTrue();
         assertThat(session2.isPresent()).isTrue();
     }
